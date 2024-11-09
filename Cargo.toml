@@ -1,0 +1,9 @@
+[package]
+name = "alpaca-trade-api-rs"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bigdecimal = { version = "0.4.6", features = ["serde", "serde-json"] }
+chrono = { version = "0.4.38", features = ["serde"] }
+serde = { version = "1.0.214", features = ["derive"] }
