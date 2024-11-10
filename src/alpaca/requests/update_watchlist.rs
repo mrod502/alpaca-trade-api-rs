@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
-pub struct UpdateWatchlistRequest {
+pub struct UpdateWatchlist {
     pub name: String,
     pub symbols: Vec<String>,
 }

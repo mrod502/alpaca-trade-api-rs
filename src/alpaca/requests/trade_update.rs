@@ -2,7 +2,7 @@ use bigdecimal::BigDecimal;
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
 
-use super::order::Order;
+use crate::alpaca::entities::Order;
 
 #[derive(Serialize, Deserialize)]
 pub struct TradeUpdate {

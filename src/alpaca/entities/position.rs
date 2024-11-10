@@ -1,7 +1,7 @@
 use bigdecimal::BigDecimal;
 use serde::{Deserialize, Serialize};
 
-use super::{asset_class::AssetClass, string_enum::StringEnum};
+use crate::alpaca::enums::{AssetClass, StringEnum};
 
 #[derive(Serialize, Deserialize)]
 pub struct Position {

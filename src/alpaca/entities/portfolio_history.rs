@@ -1,7 +1,7 @@
 use bigdecimal::BigDecimal;
 use serde::{Deserialize, Serialize};
 
-use super::{string_enum::StringEnum, time_frame::TimeFrame};
+use crate::alpaca::enums::{StringEnum, TimeFrame};
 
 #[derive(Serialize, Deserialize)]
 pub struct PortfolioHistory {

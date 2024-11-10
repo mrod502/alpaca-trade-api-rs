@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::{asset_class::AssetClass, asset_status::AssetStatus, string_enum::StringEnum};
+use crate::alpaca::enums::{AssetClass, AssetStatus, StringEnum};
 
 #[derive(Serialize, Deserialize)]
 pub struct Asset {
