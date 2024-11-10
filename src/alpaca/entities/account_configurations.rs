@@ -1,8 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::dtbp_check::DTBPCheck;
-use super::string_enum::StringEnum;
-use super::trade_confirm_email::TradeConfirmEmail;
+use crate::alpaca::enums::{DTBPCheck, StringEnum, TradeConfirmEmail};
 
 #[derive(Serialize, Deserialize)]
 pub struct AccountConfigurations {

@@ -1,14 +1,9 @@
-use super::asset_class::AssetClass;
 use bigdecimal::BigDecimal;
 
-use super::order_class::OrderClass;
-use super::order_type::OrderType;
-use super::side::Side;
-use super::string_enum::StringEnum;
-
-use super::time_in_force::TimeInForce;
 use chrono::NaiveDateTime;
 use serde::{Deserialize, Serialize};
+
+use crate::alpaca::enums::{AssetClass, OrderClass, OrderType, Side, StringEnum, TimeInForce};
 
 #[derive(Serialize, Deserialize)]
 pub struct Order {
