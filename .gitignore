@@ -24,9 +24,6 @@ Cargo.lock
 
 /target
 
+# sensitive files
 
-# Added by cargo
-#
-# already existing elements were commented out
-
-#/target
+.env
