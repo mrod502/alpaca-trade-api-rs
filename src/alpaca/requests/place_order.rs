@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::alpaca::enums::{OrderClass, OrderType, PositionIntent, Side, StringEnum, TimeInForce};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct PlaceOrder {
     pub symbol: String,
     pub qty: BigDecimal,
@@ -24,11 +24,11 @@ pub struct PlaceOrder {
     pub position_intent: StringEnum<PositionIntent>,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct TakeProfit {
     pub limit_price: BigDecimal,
 }
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct StopLoss {
     pub limit_price: BigDecimal,
     pub stop_price: BigDecimal,

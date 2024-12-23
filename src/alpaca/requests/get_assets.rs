@@ -1,8 +1,8 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct GetAssets {
-    pub status: String,
-    pub asset_class: String,
-    pub exchange: String,
+    pub status: Option<String>,
+    pub asset_class: Option<String>,
+    pub exchange: Option<String>,
 }

@@ -2,6 +2,7 @@ use std::str::FromStr;
 
 use serde::{Deserialize, Serialize};
 
+#[derive(Clone)]
 pub struct StringEnum<T>(T)
 where
     T: ToString + FromStr;
@@ -28,9 +29,19 @@ where
     {
         let res = String::deserialize(deserializer)?;
         let des = T::from_str(&res);
+        println!("got string value {}", res);
         match des {
             Ok(s) => Ok(StringEnum(s)),
             Err(_) => todo!(),
         }
+    }
+}
+
+impl<T> ToString for StringEnum<T>
+where
+    T: ToString + FromStr,
+{
+    fn to_string(&self) -> String {
+        self.0.to_string()
     }
 }

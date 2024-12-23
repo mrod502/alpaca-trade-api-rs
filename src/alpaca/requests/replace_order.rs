@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::alpaca::enums::{StringEnum, TimeInForce};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct ReplaceOrder {
     pub qty: BigDecimal,
     pub limit_price: BigDecimal,
