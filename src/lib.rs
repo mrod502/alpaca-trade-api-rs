@@ -10,7 +10,7 @@ mod tests {
         requests::GetAccountActivities,
         rest::{ClientOptions, ClientV2},
     };
-    use chrono::{NaiveDateTime, TimeDelta};
+    use chrono::NaiveDateTime;
 
     use super::*;
 
@@ -24,7 +24,6 @@ mod tests {
             oauth: "".into(),
             base_url: "https://api.alpaca.markets/v2/".into(),
             max_retry: 3,
-            retry_delay: TimeDelta::seconds(1),
         };
         let client = &ClientV2::new(opts);
         let acct = client.get_account().await;
@@ -47,7 +46,6 @@ mod tests {
             oauth: "".into(),
             base_url: "https://api.alpaca.markets/v2/".into(),
             max_retry: 3,
-            retry_delay: TimeDelta::seconds(1),
         };
         let client = &ClientV2::new(opts);
         let pos = client.get_account().await;
@@ -72,7 +70,6 @@ mod tests {
             oauth: "".into(),
             base_url: "https://api.alpaca.markets/v2/".into(),
             max_retry: 3,
-            retry_delay: TimeDelta::seconds(1),
         };
         let client = &ClientV2::new(opts);
 

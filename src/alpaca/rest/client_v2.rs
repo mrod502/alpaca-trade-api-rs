@@ -2,7 +2,7 @@ use std::{collections::HashMap, fmt::Display, str::FromStr};
 
 use chrono::{
     format::{DelayedFormat, StrftimeItems},
-    DateTime, Duration, Offset, TimeZone,
+    DateTime, Duration, TimeZone,
 };
 use http_body_util::{BodyExt, Full};
 use hyper::{
@@ -11,10 +11,9 @@ use hyper::{
 };
 use hyper_tls::HttpsConnector;
 use hyper_util::client::legacy::{connect::HttpConnector, Client};
-use serde::{de::DeserializeOwned, Serialize};
+use serde::{de::DeserializeOwned, Deserialize, Serialize};
 
 use crate::{
-    add,
     alpaca::{
         entities::{
             Account, AccountActivity, AccountConfigurations, Announcement, Asset, CalendarDay,
@@ -42,6 +41,7 @@ where
     v.format("%Y-%m-%dT%H:%M:%S%.f%:z")
 }
 
+#[derive(Serialize, Deserialize)]
 pub struct ClientOptions {
     pub key: String,
     pub secret: String,
@@ -50,10 +50,7 @@ pub struct ClientOptions {
     pub oauth: String,
     pub base_url: String,
     pub max_retry: isize,
-    pub retry_delay: Duration,
 }
-
-impl ClientOptions {}
 
 pub struct ClientV2 {
     opts: ClientOptions,
@@ -462,8 +459,15 @@ impl ClientV2 {
     {
         let path = path.to_string();
         let result = self.perform(Method::GET, path, None).await?;
-        let bytes = String::from_utf8(result.collect().await.unwrap().to_bytes().to_vec())
-            .unwrap_or_default();
+        let bytes = String::from_utf8(
+            result
+                .collect()
+                .await
+                .unwrap_or_default()
+                .to_bytes()
+                .to_vec(),
+        )
+        .unwrap_or_default();
         let de: T = match serde_json::from_str(&bytes) {
             Ok(v) => v,
             Err(e) => {
@@ -480,14 +484,21 @@ impl ClientV2 {
         T: DeserializeOwned,
     {
         let body = match opts.body {
-            Some(bod) => Some(Bytes::from(serde_json::to_string(&bod).unwrap())),
+            Some(bod) => Some(Bytes::from(serde_json::to_string(&bod).unwrap_or_default())),
             None => None,
         };
 
         let result = self.perform(method, opts.path, body).await?;
 
-        let bytes = String::from_utf8(result.collect().await.unwrap().to_bytes().to_vec())
-            .unwrap_or_default();
+        let bytes = String::from_utf8(
+            result
+                .collect()
+                .await
+                .unwrap_or_default()
+                .to_bytes()
+                .to_vec(),
+        )
+        .unwrap_or_default();
         println!("raw_body:{}", bytes);
         let de: T = match serde_json::from_str(&bytes) {
             Ok(v) => v,
@@ -511,7 +522,7 @@ impl ClientV2 {
         };
 
         let req = match Request::builder()
-            .uri(self.url(path).unwrap())
+            .uri(self.url(path)?)
             .method(method)
             .header(HDR_API_KEY_ID, self.opts.key.clone())
             .header(HDR_API_SECRET, self.opts.secret.clone())

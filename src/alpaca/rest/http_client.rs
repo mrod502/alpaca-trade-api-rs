@@ -54,7 +54,7 @@ impl HttpClient {
             Err(e) => return Err(HttpClientError::new(format!("{}", e))),
         };
 
-        let host = uri.host().unwrap();
+        let host = uri.host().unwrap_or_default();
         let port = uri.port_u16().unwrap_or(80);
         let address = format!("{}:{}", host, port);
         let client: Client<_, Full<Bytes>> =
